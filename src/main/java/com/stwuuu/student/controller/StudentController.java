@@ -1,4 +1,4 @@
-package com.stwuuu.student;
+package com.stwuuu.student.controller;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.stwuuu.student.entity.Student;
+import com.stwuuu.student.service.StudentService;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;

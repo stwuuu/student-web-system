@@ -1,8 +1,10 @@
-package com.stwuuu.student;
+package com.stwuuu.student.service;
 
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
+
+import com.stwuuu.student.entity.Student;
 
 @Service
 public class StudentService {

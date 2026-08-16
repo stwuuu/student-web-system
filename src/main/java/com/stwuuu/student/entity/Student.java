@@ -1,4 +1,4 @@
-package com.stwuuu.student;
+package com.stwuuu.student.entity;
 
 public class Student {
     private String id;
