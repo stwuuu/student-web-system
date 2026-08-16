@@ -6,10 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.stwuuu.student.entity.Student;
 import com.stwuuu.student.service.StudentService;
-
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -42,7 +41,7 @@ public class StudentController {
     }
 
     @PostMapping("/students")
-    public ResponseEntity<Student> addStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> addStudent(@Valid @RequestBody Student student) {
         Student newStudent = studentService.addStudent(student);
 
         if (newStudent == null) {
@@ -53,7 +52,7 @@ public class StudentController {
     }
 
     @PutMapping("/students/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable String id, @RequestBody Student student) {
+    public ResponseEntity<Student> updateStudent(@PathVariable String id, @Valid @RequestBody Student student) {
         Student updatedStudent = studentService.updateStudent(id, student);
 
         if (updatedStudent == null) {
