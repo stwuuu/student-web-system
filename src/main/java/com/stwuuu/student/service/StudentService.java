@@ -4,67 +4,57 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.stwuuu.student.dao.StudentDao;
 import com.stwuuu.student.entity.Student;
 
 @Service
 public class StudentService {
-    private ArrayList<Student> list = new ArrayList<>();
+    private final StudentDao studentDao;
 
-
-    public StudentService() {
-        list.add(new Student("001", "张三", 20, "广州"));
-        list.add(new Student("002", "李四", 19, "上海"));
+    public StudentService(StudentDao studentDao) {
+        this.studentDao = studentDao;
     }
 
     public ArrayList<Student> getStudents() {
-        return list;
+        return studentDao.queryAllStudents();
     }
 
     public Student getStudentById(String id) {
-        for (int i = 0; i < list.size(); i++) {
-            Student s = list.get(i);
-
-            if (s.getId().equals(id)) {
-                return s;
-            }
-        }
-
-        return null;
+        return studentDao.getStudentById(id);
     }
 
     public Student addStudent(Student student) {
-        Student oldStudent = getStudentById(student.getId());
+        Student oldStudent = studentDao.getStudentById(student.getId());
 
         if (oldStudent != null) {
             return null;
         }
 
-        list.add(student);
-        return student;
+        int count = studentDao.addStudent(student);
+        return count > 0 ? student : null;
     }
 
     public Student updateStudent(String id, Student newStudent) {
-        Student s = getStudentById(id);
+        Student oldStudent = studentDao.getStudentById(id);
 
-        if (s == null) {
+        if (oldStudent == null) {
             return null;
         }
 
-        s.setName(newStudent.getName());
-        s.setAge(newStudent.getAge());
-        s.setAddress(newStudent.getAddress());
+        Student updatedStudent = new Student(id, newStudent.getName(), newStudent.getAge(), newStudent.getAddress());
 
-        return s;
+        int count = studentDao.updateStudent(updatedStudent);
+        return count > 0 ? updatedStudent : null;
     }
 
     public boolean deleteStudentById(String id) {
-        Student s = getStudentById(id);
+        Student oldStudent = studentDao.getStudentById(id);
 
-        if (s == null) {
+        if (oldStudent == null) {
             return false;
         }
 
-        list.remove(s);
-        return true;
+        int count = studentDao.deleteStudentById(id);
+        return count > 0;
     }
 }

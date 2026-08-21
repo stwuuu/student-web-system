@@ -3,6 +3,7 @@ package com.stwuuu.student.exception;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,4 +27,12 @@ public class GlobalExceptionHandler {
 
         return errors;
     }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(DataAccessException.class)
+    public Map<String, String> handleDataAccessException(DataAccessException e) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("database", "数据库操作失败，请检查MySQL是否启动或配置是否正确");
+        return errors;
+}
 }
